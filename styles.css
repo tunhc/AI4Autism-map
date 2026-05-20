@@ -52,6 +52,7 @@ select {
   border-bottom: 1px solid var(--line);
   background: #efe3ca;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.55) inset;
+  flex-wrap: wrap;
 }
 
 .topbar h1 {
@@ -151,6 +152,7 @@ select {
   border-bottom: 1px solid var(--line);
   background: var(--panel-2);
   font-family: Arial, Helvetica, sans-serif;
+  flex-wrap: wrap;
 }
 
 .result-tools strong {
@@ -227,6 +229,7 @@ select {
   font-size: 11px;
   font-weight: 700;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .badge.ready {
@@ -488,14 +491,41 @@ select {
   text-align: center;
 }
 
+/* Tablet landscape (860px - 1024px) */
+@media (max-width: 1024px) {
+  .workspace {
+    grid-template-columns: minmax(280px, 35%) 1fr;
+  }
+}
+
+/* Tablet và mobile (860px trở xuống) */
 @media (max-width: 860px) {
   .topbar {
-    align-items: flex-start;
     flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .topbar > div:first-child {
+    width: 100%;
+  }
+
+  .topbar h1 {
+    font-size: 20px;
+  }
+
+  .topbar p {
+    font-size: 12px;
   }
 
   .stats {
     justify-content: flex-start;
+    width: 100%;
+  }
+
+  .stats span {
+    font-size: 12px;
+    padding: 6px 8px;
   }
 
   .workspace {
@@ -524,5 +554,141 @@ select {
     bottom: 12px;
     width: auto;
     max-height: 44vh;
+  }
+
+  .controls {
+    padding: 12px;
+  }
+
+  .field input,
+  .field select {
+    min-height: 36px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* Small devices (600px trở xuống) */
+@media (max-width: 600px) {
+  .topbar {
+    padding: 12px 16px;
+  }
+
+  .topbar h1 {
+    font-size: 18px;
+    margin-bottom: 2px;
+  }
+
+  .topbar p {
+    font-size: 11px;
+  }
+
+  .stats span {
+    font-size: 11px;
+    padding: 5px 7px;
+  }
+
+  .workspace {
+    grid-template-rows: 50vh 50vh;
+    height: calc(100vh - 100px);
+  }
+
+  .place-item {
+    padding: 10px;
+    margin-bottom: 6px;
+  }
+
+  .place-title strong {
+    font-size: 13px;
+  }
+
+  .place-meta,
+  .place-address {
+    font-size: 11px;
+  }
+
+  .detail-panel {
+    padding: 14px;
+  }
+
+  .detail-content h2 {
+    font-size: 16px;
+  }
+
+  .detail-content p {
+    font-size: 12px;
+  }
+
+  .info-row {
+    grid-template-columns: 80px 1fr;
+    gap: 8px;
+    font-size: 12px;
+  }
+
+  .detail-actions a {
+    font-size: 12px;
+    min-height: 32px;
+    padding: 6px 8px;
+  }
+
+  .result-tools {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  .result-tools strong {
+    font-size: 12px;
+  }
+
+  .result-tools button {
+    min-height: 30px;
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+}
+
+/* Very small devices (< 400px) */
+@media (max-width: 400px) {
+  .workspace {
+    grid-template-rows: 45vh 55vh;
+  }
+
+  .topbar {
+    padding: 10px 12px;
+  }
+
+  .topbar h1 {
+    font-size: 16px;
+  }
+
+  .topbar p {
+    font-size: 10px;
+  }
+
+  .stats {
+    gap: 6px;
+  }
+
+  .stats span {
+    font-size: 10px;
+    padding: 4px 6px;
+  }
+
+  .place-title {
+    gap: 6px;
+  }
+
+  .place-item {
+    padding: 8px;
+  }
+
+  .detail-panel {
+    padding: 12px;
+  }
+
+  .leaflet-control-zoom a {
+    width: 28px;
+    height: 28px;
+    line-height: 27px;
+    font-size: 16px;
   }
 }
