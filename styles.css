@@ -29,6 +29,7 @@ body {
   font-family: Georgia, "Times New Roman", serif;
   letter-spacing: 0;
   overflow: hidden;
+  overflow-x: hidden;
 }
 
 button,
@@ -52,7 +53,7 @@ select {
   border-bottom: 1px solid var(--line);
   background: #efe3ca;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.55) inset;
-  flex-wrap: wrap;
+  min-width: 0;
 }
 
 .topbar h1 {
@@ -92,6 +93,7 @@ select {
   grid-template-columns: minmax(330px, 390px) 1fr;
   min-height: 0;
   height: calc(100vh - 73px);
+  overflow: hidden;
 }
 
 .sidebar {
@@ -102,6 +104,7 @@ select {
   background: var(--panel);
   box-shadow: 2px 0 18px rgba(68, 52, 32, 0.08);
   z-index: 600;
+  min-width: 0;
 }
 
 .controls {
@@ -152,7 +155,6 @@ select {
   border-bottom: 1px solid var(--line);
   background: var(--panel-2);
   font-family: Arial, Helvetica, sans-serif;
-  flex-wrap: wrap;
 }
 
 .result-tools strong {
@@ -206,11 +208,14 @@ select {
   align-items: flex-start;
   justify-content: space-between;
   gap: 10px;
+  min-width: 0;
 }
 
 .place-title strong {
   font-size: 14px;
   line-height: 1.35;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .place-meta,
@@ -229,7 +234,7 @@ select {
   font-size: 11px;
   font-weight: 700;
   white-space: nowrap;
-  flex-shrink: 0;
+  flex: 0 0 auto;
 }
 
 .badge.ready {
@@ -491,204 +496,201 @@ select {
   text-align: center;
 }
 
-/* Tablet landscape (860px - 1024px) */
-@media (max-width: 1024px) {
-  .workspace {
-    grid-template-columns: minmax(280px, 35%) 1fr;
-  }
-}
-
-/* Tablet và mobile (860px trở xuống) */
 @media (max-width: 860px) {
-  .topbar {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
+  html,
+  body {
+    height: auto;
+    min-height: 100%;
   }
 
-  .topbar > div:first-child {
-    width: 100%;
+  body {
+    overflow: auto;
+    overflow-x: hidden;
+  }
+
+  .app-shell {
+    min-height: 100svh;
+    display: block;
+  }
+
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px 14px;
+    position: relative;
   }
 
   .topbar h1 {
-    font-size: 20px;
+    font-size: 21px;
   }
 
   .topbar p {
     font-size: 12px;
+    line-height: 1.35;
   }
 
   .stats {
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     width: 100%;
+    justify-content: flex-start;
+    gap: 6px;
   }
 
   .stats span {
-    font-size: 12px;
-    padding: 6px 8px;
+    min-width: 0;
+    padding: 6px;
+    text-align: center;
+    white-space: normal;
+    font-size: 11px;
   }
 
   .workspace {
-    grid-template-columns: 1fr;
-    grid-template-rows: minmax(390px, 52vh) minmax(360px, 48vh);
-    height: calc(100vh - 124px);
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
   }
 
   .map-area {
-    grid-row: 1;
+    order: 1;
+    height: 54svh;
+    min-height: 340px;
+    max-height: 560px;
+    border-bottom: 1px solid var(--line);
   }
 
   .sidebar {
-    grid-row: 2;
+    order: 2;
+    display: block;
     border-right: 0;
     border-top: 1px solid var(--line);
+    min-height: 0;
+    box-shadow: none;
   }
 
   #map {
-    min-height: 390px;
-  }
-
-  .detail-panel {
-    left: 12px;
-    right: 12px;
-    bottom: 12px;
-    width: auto;
-    max-height: 44vh;
+    height: 100%;
+    min-height: 340px;
   }
 
   .controls {
     padding: 12px;
   }
 
+  .control-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
   .field input,
   .field select {
-    min-height: 36px;
-    font-size: 16px; /* Prevents zoom on iOS */
-  }
-}
-
-/* Small devices (600px trở xuống) */
-@media (max-width: 600px) {
-  .topbar {
-    padding: 12px 16px;
-  }
-
-  .topbar h1 {
-    font-size: 18px;
-    margin-bottom: 2px;
-  }
-
-  .topbar p {
-    font-size: 11px;
-  }
-
-  .stats span {
-    font-size: 11px;
-    padding: 5px 7px;
-  }
-
-  .workspace {
-    grid-template-rows: 50vh 50vh;
-    height: calc(100vh - 100px);
-  }
-
-  .place-item {
-    padding: 10px;
-    margin-bottom: 6px;
-  }
-
-  .place-title strong {
-    font-size: 13px;
-  }
-
-  .place-meta,
-  .place-address {
-    font-size: 11px;
-  }
-
-  .detail-panel {
-    padding: 14px;
-  }
-
-  .detail-content h2 {
-    font-size: 16px;
-  }
-
-  .detail-content p {
-    font-size: 12px;
-  }
-
-  .info-row {
-    grid-template-columns: 80px 1fr;
-    gap: 8px;
-    font-size: 12px;
-  }
-
-  .detail-actions a {
-    font-size: 12px;
-    min-height: 32px;
-    padding: 6px 8px;
+    min-height: 42px;
+    font-size: 15px;
   }
 
   .result-tools {
-    padding: 8px 12px;
-    gap: 8px;
-  }
-
-  .result-tools strong {
-    font-size: 12px;
-  }
-
-  .result-tools button {
-    min-height: 30px;
-    padding: 5px 8px;
-    font-size: 12px;
-  }
-}
-
-/* Very small devices (< 400px) */
-@media (max-width: 400px) {
-  .workspace {
-    grid-template-rows: 45vh 55vh;
-  }
-
-  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 620;
     padding: 10px 12px;
   }
 
-  .topbar h1 {
-    font-size: 16px;
+  .list {
+    max-height: none;
+    overflow: visible;
+    padding: 10px 10px 88px;
   }
 
+  .place-item {
+    padding: 12px;
+    margin-bottom: 10px;
+  }
+
+  .place-title {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+  }
+
+  .place-title strong {
+    font-size: 15px;
+  }
+
+  .detail-panel {
+    position: fixed;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    width: auto;
+    max-height: 58svh;
+    padding: 14px;
+    z-index: 1000;
+  }
+
+  .detail-content {
+    padding-right: 28px;
+  }
+
+  .info-row {
+    grid-template-columns: 82px 1fr;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 520px) {
   .topbar p {
-    font-size: 10px;
+    display: none;
   }
 
   .stats {
-    gap: 6px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .workspace {
+    background: var(--panel);
+  }
+
+  .map-area {
+    height: 48svh;
+    min-height: 300px;
+  }
+
+  #map {
+    min-height: 300px;
+  }
+
+  .controls {
+    position: relative;
+  }
+
+  .badge {
+    font-size: 10px;
+    padding: 3px 7px;
+  }
+
+  .detail-actions a {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .topbar h1 {
+    font-size: 19px;
   }
 
   .stats span {
     font-size: 10px;
-    padding: 4px 6px;
   }
 
   .place-title {
-    gap: 6px;
+    grid-template-columns: 1fr;
   }
 
-  .place-item {
-    padding: 8px;
-  }
-
-  .detail-panel {
-    padding: 12px;
-  }
-
-  .leaflet-control-zoom a {
-    width: 28px;
-    height: 28px;
-    line-height: 27px;
-    font-size: 16px;
+  .badge {
+    width: fit-content;
   }
 }
